@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textview_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="@dimen/com_facebook_profilepictureview_preset_size_small"
+        android:alpha="0.9"
+        android:fontFamily="casual"
+        android:lineSpacingExtra="10sp"
+        android:padding="@dimen/com_facebook_tooltip_horizontal_padding"
+        android:text="Sign up"
+        android:textColor="?attr/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editbox_username"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="@dimen/login_editbox"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:drawableStart="@drawable/ic_account_circle_black_24dp"
+        android:hint="  Username"
+        android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:id="@+id/edittext_password"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="@dimen/login_editbox"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:ems="10"
+        android:hint=" Password"
+        android:inputType="textPassword"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:alpha="0.7"
+        android:elevation="21dp"
+        android:text="Sign in"
+        android:textAllCaps="false" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+
+        android:layout_marginTop="30dp" />
+
+</LinearLayout>
