@@ -1,9 +1,11 @@
 package com.sujan.mykitaab;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.util.Base64;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -29,10 +32,12 @@ import java.security.NoSuchAlgorithmException;
 public class LoginFragment extends Fragment {
     LoginButton loginButton;
     CallbackManager callbackManager;
+    Button signin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         try {
             PackageInfo info = getActivity().getPackageManager().getPackageInfo(
                     "com.sujan.mykitaab",
@@ -54,6 +59,14 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.login,container,false);
+        signin= (Button) view.findViewById(R.id.signinbutton);
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), MainActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         // If using in a fragment
