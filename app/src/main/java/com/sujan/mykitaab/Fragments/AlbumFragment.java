@@ -1,4 +1,4 @@
-package com.sujan.mykitaab;
+package com.sujan.mykitaab.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,17 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.sujan.mykitaab.R;
+
 /**
  * Created by macbookpro on 4/16/17.
  */
 
-public class Friendlistfragment extends Fragment {
+public class AlbumFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.friendlistfragment,container,false);
-        Toast.makeText(getActivity(),"Friendlist is selected",Toast.LENGTH_LONG).show();
+        View view=inflater.inflate(R.layout.albumfragment,container,false);
+        Toast.makeText(getActivity(),"Album is selected",Toast.LENGTH_LONG).show();
         return view;
     }
 }
