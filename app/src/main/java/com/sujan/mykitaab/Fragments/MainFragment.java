@@ -3,6 +3,7 @@ package com.sujan.mykitaab.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -34,11 +35,12 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         createViewPager();
-
     }
+
+
 
 
     public void createViewPager(){

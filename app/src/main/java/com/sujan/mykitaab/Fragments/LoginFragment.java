@@ -1,15 +1,10 @@
 package com.sujan.mykitaab.Fragments;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +18,9 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.sujan.mykitaab.MainActivity;
-import com.sujan.mykitaab.Model.User_WithFacebook;
 import com.sujan.mykitaab.Presenter.MyKitabPresenter;
 import com.sujan.mykitaab.Presenter.PresenterContract;
 import com.sujan.mykitaab.R;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,7 +66,21 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.login,container,false);
         ButterKnife.bind(this,view);
-        facebooklogin.setReadPermissions("email");
+//        try {
+//            PackageInfo info = getActivity().getPackageManager().getPackageInfo(
+//                    "com.sujan.mykitaab",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash........:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
+        facebooklogin.setReadPermissions("email","user_posts","user_friends","read_custom_friendlists");
         facebooklogin.setFragment(this);
         callbackManager = CallbackManager.Factory.create();
         return view;
@@ -86,20 +91,6 @@ public class LoginFragment extends Fragment {
     @OnClick({R.id.button_facebooklogin,R.id.button_signin})
     public void onClickbutton(View view){
         if(view.getId()==R.id.button_facebooklogin){
-//            try {
-//                PackageInfo info = getActivity().getPackageManager().getPackageInfo(
-//                        "com.sujan.mykitaab",
-//                        PackageManager.GET_SIGNATURES);
-//                for (Signature signature : info.signatures) {
-//                    MessageDigest md = MessageDigest.getInstance("SHA");
-//                    md.update(signature.toByteArray());
-//                    Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//                }
-//            } catch (PackageManager.NameNotFoundException e) {
-//
-//            } catch (NoSuchAlgorithmException e) {
-//
-//            }
             callbackManager = CallbackManager.Factory.create();
             facebooklogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
@@ -153,6 +144,7 @@ public class LoginFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 
 }

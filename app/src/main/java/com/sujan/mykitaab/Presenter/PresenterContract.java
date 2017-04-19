@@ -1,9 +1,6 @@
 package com.sujan.mykitaab.Presenter;
 
-import com.facebook.FacebookCallback;
-import com.facebook.login.LoginResult;
-import com.sujan.mykitaab.Model.User_WithFacebook;
-import com.sujan.mykitaab.Model.User_Without_Facebook;
+import com.sujan.mykitaab.HelperClass.User_WithFacebook;
 
 /**
  * Created by macbookpro on 4/17/17.

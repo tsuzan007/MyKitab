@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.sujan.mykitaab.Model.User_WithFacebook;
+import com.sujan.mykitaab.HelperClass.User_WithFacebook;
 import com.sujan.mykitaab.Presenter.MyKitabPresenter;
 import com.sujan.mykitaab.Presenter.PresenterContract;
 

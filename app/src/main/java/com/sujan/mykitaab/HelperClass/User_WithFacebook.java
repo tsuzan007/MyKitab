@@ -1,6 +1,4 @@
-package com.sujan.mykitaab.Model;
-
-import java.util.Date;
+package com.sujan.mykitaab.HelperClass;
 
 /**
  * Created by macbookpro on 4/17/17.
