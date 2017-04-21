@@ -7,12 +7,13 @@
     tools:context="com.sujan.mykitaab.PhotoPreviewActivity">
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/mycamerapreview"
         android:name="com.sujan.mykitaab.Fragments.CameraPreviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        tools:layout="@layout/photopreview_fragment"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:layout="@layout/photopreview_fragment" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

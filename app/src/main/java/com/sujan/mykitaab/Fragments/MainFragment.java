@@ -9,10 +9,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.sujan.mykitaab.HelperClass.MessageEvent;
 import com.sujan.mykitaab.R;
+
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,14 +38,30 @@ public class MainFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.main_fragment,container,false);
         ButterKnife.bind(this,view);
+        createViewPager();
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        createViewPager();
+
+
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+
+    }
+
+//    @Subscribe
+//    public void listen(MessageEvent messageEvent){
+//        Toast.makeText(getActivity(),"how are you.",Toast.LENGTH_SHORT).show();
+//
+//
+//    }
 
 
 
@@ -109,5 +132,12 @@ public class MainFragment extends Fragment {
         public int getCount() {
             return fragmentname.length;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+
+
     }
 }

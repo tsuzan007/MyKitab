@@ -8,8 +8,16 @@ public class User_WithFacebook {
 
     String name;
     String email_id;
-    String location;
+    String id;
     String date_of_birth;
+
+
+    public User_WithFacebook(String name, String email_id, String id, String date_of_birth) {
+        this.name = name;
+        this.email_id = email_id;
+        this.id = id;
+        this.date_of_birth = date_of_birth;
+    }
 
     public String getName() {
         return name;
@@ -27,12 +35,12 @@ public class User_WithFacebook {
         this.email_id = email_id;
     }
 
-    public String getLocation() {
-        return location;
+    public String getid() {
+        return id;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setid(String location) {
+        this.id = location;
     }
 
     public String getDate_of_birth() {

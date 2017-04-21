@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sujan.mykitaab.R;
 
+import java.util.List;
+
 /**
  * Created by macbookpro on 4/18/17.
  */
@@ -27,13 +29,16 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             android.R.drawable.ic_lock_idle_lock,
             android.R.drawable.ic_lock_idle_low_battery,
             android.R.drawable.ic_lock_lock,
-            android.R.drawable.ic_popup_reminder
+            android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,
 
     };
     Context context;
+    List<FeedClass> list;
 
-    public MyRecyclerViewAdapter(Context context) {
+    public MyRecyclerViewAdapter(Context context, List<FeedClass> list) {
+
         this.context=context;
+        this.list=list;
     }
 
     @Override
@@ -49,18 +54,31 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Glide.with(context).load(list_of_icons[position]).into(holder.imageView);
+
+        if(list.size()!=0) {
+            if(position<list_of_icons.length){
+            Glide.with(context).load(list_of_icons[position]).into(holder.imageView);
+            holder.textView1.setText(list.get(position).getStory());
+            holder.textView.setText(list.get(position).getCreated_time());}
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return list_of_icons.length;
+        return list.size();
     }
+
+
+
+
+
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         TextView textView;
+        TextView textView1;
         ImageView imageView;
 
 
@@ -68,6 +86,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             super(itemView);
             cardView= (CardView) itemView.findViewById(R.id.card_view);
             textView= (TextView) itemView.findViewById(R.id.info_text);
+            textView1= (TextView) itemView.findViewById(R.id.story);
             imageView= (ImageView) itemView.findViewById(R.id.imageView3);
         }
     }

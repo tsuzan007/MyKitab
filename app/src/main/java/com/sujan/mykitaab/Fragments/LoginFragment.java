@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment {
 //        } catch (NoSuchAlgorithmException e) {
 //
 //        }
-        facebooklogin.setReadPermissions("email","user_posts","user_friends","read_custom_friendlists");
+        facebooklogin.setReadPermissions( "public_profile", "user_birthday","email","user_posts","user_friends","read_custom_friendlists");
         facebooklogin.setFragment(this);
         callbackManager = CallbackManager.Factory.create();
         return view;
@@ -95,6 +95,8 @@ public class LoginFragment extends Fragment {
             facebooklogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
+                    Intent intent=new Intent(getActivity(),MainActivity.class);
+                    startActivity(intent);
                     myKitabPresenter.onSuccess(loginResult);
 
                 }

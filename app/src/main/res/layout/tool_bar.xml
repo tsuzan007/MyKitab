@@ -12,6 +12,17 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:title="MyKitab"
-        app:titleTextColor="@color/cardview_dark_background" />
+        app:titleTextColor="@color/cardview_dark_background">
+
+        <Button
+            android:id="@+id/change_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:text="Change Layout" />
+
+
+    </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

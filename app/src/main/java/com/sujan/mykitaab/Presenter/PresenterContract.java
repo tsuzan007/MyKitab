@@ -27,6 +27,9 @@ public interface PresenterContract {
     interface updatethepresenter{
 
     }
+    interface setLocation{
+        public void setLocation(String location);
+    }
 
 
 
