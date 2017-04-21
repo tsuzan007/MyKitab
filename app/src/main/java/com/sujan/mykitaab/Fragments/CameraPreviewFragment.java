@@ -34,6 +34,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -92,7 +94,7 @@ public class CameraPreviewFragment extends Fragment  implements LocationListener
         try {
             imageStream = getActivity().getContentResolver().openInputStream(uriSavedImage);
             final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            ExifInterface exif = new ExifInterface(uriSavedImage.getPath());
+ //           ExifInterface exif = new ExifInterface(uriSavedImage.getPath());
 //            int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 //            int rotationInDegrees = exifToDegrees(rotation);
             Matrix matrix = new Matrix();
@@ -119,22 +121,29 @@ public class CameraPreviewFragment extends Fragment  implements LocationListener
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5,this);
 
             }
-            double lat=location.getLatitude();
-            double lng=location.getLongitude();
-            List<Address> locations=geocoder.getFromLocation(lat,lng,1);
-            try {
-                mylocation = locations.get(0).getLocality();
-            }catch (Exception e){
-                mylocation=locations.get(0).getCountryName();
-            }
 
+            List<Address> locations=new ArrayList<>();
+            try {
+                double lat=location.getLatitude();
+                double lng=location.getLongitude();
+                locations=geocoder.getFromLocation(lat,lng,1);
+                try{
+                    mylocation = locations.get(0).getLocality();
+
+                }catch (Exception e){
+                    mylocation=locations.get(0).getCountryName();
+
+                }
+
+            }catch (Exception e){
+                Toast.makeText(getActivity(),"Error Occured in fetching the location",Toast.LENGTH_SHORT).show();
+
+            }
             Canvas canvas = new Canvas(adjustedBitmap);
             Paint paint = new Paint();
             paint.setColor(Color.RED);
             paint.setTextSize(50);
             canvas.drawText(mylocation, 20, 100, paint);
-
-
             imageView.setImageBitmap(adjustedBitmap);
             imageStream.close();
 

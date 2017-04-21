@@ -95,9 +95,10 @@ public class LoginFragment extends Fragment {
             facebooklogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
+                    myKitabPresenter.onSuccess(loginResult);
                     Intent intent=new Intent(getActivity(),MainActivity.class);
                     startActivity(intent);
-                    myKitabPresenter.onSuccess(loginResult);
+
 
                 }
 
