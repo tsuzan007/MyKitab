@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.Button;
 
+import com.facebook.login.LoginManager;
 import com.sujan.mykitaab.HelperClass.MessageEvent;
 import com.sujan.mykitaab.HelperClass.User_WithFacebook;
 import com.sujan.mykitaab.Presenter.MyKitabPresenter;
@@ -23,11 +24,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity  implements PresenterContract.PublishView{
-    @BindView(R.id.app_toolbar) Toolbar toolbar;
-    @BindView(R.id.drawer) DrawerLayout drawerLayout;
-    @BindView(R.id.navigation_view) NavigationView navigationView;
-    @BindView(R.id.change_layout)Button changelayoutbutton;
+public class MainActivity extends AppCompatActivity implements PresenterContract.PublishView {
+    @BindView(R.id.app_toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawer)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
+    @BindView(R.id.change_layout)
+    Button changelayoutbutton;
+    @BindView(R.id.logout)
+    Button logout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     MyKitabPresenter myKitabPresenter;
     MessageEvent messageEvent;
@@ -41,7 +48,7 @@ public class MainActivity extends AppCompatActivity  implements PresenterContrac
         myKitabPresenter = new MyKitabPresenter(this);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
-                drawerLayout,toolbar,
+                drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -51,20 +58,29 @@ public class MainActivity extends AppCompatActivity  implements PresenterContrac
         actionBarDrawerToggle.syncState();
 
     }
+
     @OnClick(R.id.change_layout)
-    public void changelayoutclicked(Button button){
+    public void changelayoutclicked(Button button) {
 
         EventBus.getDefault().post(new MessageEvent("hello"));
+
+    }
+
+    @OnClick(R.id.logout)
+    public void onlogoutButtonClicked(Button button) {
+        LoginManager.getInstance().logOut();
+        finish();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent=getIntent();
-        String name="";
-        name=intent.getStringExtra("username");
-        if(TextUtils.isEmpty(name)){
+        Intent intent = getIntent();
+        String name = "";
+        name = intent.getStringExtra("username");
+        if (TextUtils.isEmpty(name)) {
+
             navigationView.getMenu().getItem(0).setTitle(name);
 
         }
@@ -93,18 +109,13 @@ public class MainActivity extends AppCompatActivity  implements PresenterContrac
     }
 
     @Subscribe
-    public void updatenavigation(User_WithFacebook user_withFacebook){
-        navigationView.getMenu().getItem(0).setTitle(user_withFacebook.getid());
-        navigationView.getMenu().getItem(1).setTitle(user_withFacebook.getName());
-        navigationView.getMenu().getItem(2).setTitle(user_withFacebook.getEmail_id());
-        navigationView.getMenu().getItem(3).setTitle(user_withFacebook.getDate_of_birth());
-
-
-
+    public void updatenavigation(User_WithFacebook user_withFacebook) {
+        navigationView.getMenu().getItem(0).setTitle(user_withFacebook.getName());
+        navigationView.getMenu().getItem(1).setTitle(user_withFacebook.getEmail_id());
+        navigationView.getMenu().getItem(2).setTitle(user_withFacebook.getDate_of_birth());
 
 
     }
-
 
 
 }
