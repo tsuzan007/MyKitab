@@ -43,16 +43,16 @@ public class Friendlistfragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     StaggeredGridLayoutManager stagManager;
     SwipeRefreshLayout swipeRefreshLayout;
-    List<FeedClass> mylist=new ArrayList<>();
+    List<FeedClass> mylist = new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.friendlistfragment,container,false);
-        recyclerView= (RecyclerView) view.findViewById(R.id.myrecyclerview);
-        swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-       linearLayoutManager=new LinearLayoutManager(getActivity());
+        View view = inflater.inflate(R.layout.friendlistfragment, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.myrecyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -68,16 +68,14 @@ public class Friendlistfragment extends Fragment {
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-       if(recyclerView.getLayoutManager().equals(stagManager)){
-           recyclerView.setLayoutManager(linearLayoutManager);
+        if (recyclerView.getLayoutManager().equals(stagManager)) {
+            recyclerView.setLayoutManager(linearLayoutManager);
 
-       }
-       else{
-           recyclerView.setLayoutManager(stagManager);
-       }
+        } else {
+            recyclerView.setLayoutManager(stagManager);
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -94,27 +92,27 @@ public class Friendlistfragment extends Fragment {
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
-                        if(response.getError()==null) {
+                        if (response.getError() == null) {
 
                             Log.v("LoginActivity", response.toString());
                             JSONObject jsonObject = response.getJSONObject();
                             try {
-                                JSONObject feedmasterobject=jsonObject.getJSONObject("feed");
-                                JSONArray data_feed=feedmasterobject.getJSONArray("data");
-                                for(int x=0;x<data_feed.length();x++){
-                                    JSONObject feed_object=data_feed.getJSONObject(x);
-                                  //  Log.e("....",feed_object.toString());
-                                    String story="";
-                                    try{
-                                       story =feed_object.getString("story");
+                                JSONObject feedmasterobject = jsonObject.getJSONObject("feed");
+                                JSONArray data_feed = feedmasterobject.getJSONArray("data");
+                                for (int x = 0; x < data_feed.length(); x++) {
+                                    JSONObject feed_object = data_feed.getJSONObject(x);
+                                    //  Log.e("....",feed_object.toString());
+                                    String story = "";
+                                    try {
+                                        story = feed_object.getString("story");
 
-                                    }catch (JSONException ex){
-                                        story=feed_object.getString("message");
+                                    } catch (JSONException ex) {
+                                        story = feed_object.getString("message");
 
                                     }
-                                    String created_time=feed_object.getString("created_time");
-                                    String id=feed_object.getString("id");
-                                    FeedClass mystory=new FeedClass(story,created_time,id);
+                                    String created_time = feed_object.getString("created_time");
+                                    String id = feed_object.getString("id");
+                                    FeedClass mystory = new FeedClass(story, created_time, id);
                                     mylist.add(mystory);
                                     adapter.notifyDataSetChanged();
                                 }
@@ -122,9 +120,8 @@ public class Friendlistfragment extends Fragment {
                                 e.printStackTrace();
                             }
 
-                        }
-                        else{
-                            Toast.makeText(getActivity(),"no response",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "no response", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -133,7 +130,6 @@ public class Friendlistfragment extends Fragment {
         swipeRefreshLayout.setRefreshing(false);
 
     }
-
 
 
     @Override
@@ -147,27 +143,27 @@ public class Friendlistfragment extends Fragment {
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
-                        if(response.getError()==null) {
+                        if (response.getError() == null) {
 
                             Log.v("LoginActivity", response.toString());
                             JSONObject jsonObject = response.getJSONObject();
                             try {
-                                JSONObject feedmasterobject=jsonObject.getJSONObject("feed");
-                                JSONArray data_feed=feedmasterobject.getJSONArray("data");
-                                for(int x=0;x<data_feed.length();x++){
-                                    JSONObject feed_object=data_feed.getJSONObject(x);
+                                JSONObject feedmasterobject = jsonObject.getJSONObject("feed");
+                                JSONArray data_feed = feedmasterobject.getJSONArray("data");
+                                for (int x = 0; x < data_feed.length(); x++) {
+                                    JSONObject feed_object = data_feed.getJSONObject(x);
                                     //Log.e("....",feed_object.toString());
-                                    String story="";
-                                    try{
-                                        story =feed_object.getString("story");
+                                    String story = "";
+                                    try {
+                                        story = feed_object.getString("story");
 
-                                    }catch (JSONException ex){
-                                        story=feed_object.getString("message");
+                                    } catch (JSONException ex) {
+                                        story = feed_object.getString("message");
 
                                     }
-                                    String created_time=feed_object.getString("created_time");
-                                    String id=feed_object.getString("id");
-                                    FeedClass mystory=new FeedClass(story,created_time,id);
+                                    String created_time = feed_object.getString("created_time");
+                                    String id = feed_object.getString("id");
+                                    FeedClass mystory = new FeedClass(story, created_time, id);
                                     mylist.add(mystory);
                                     adapter.notifyDataSetChanged();
 
@@ -176,9 +172,8 @@ public class Friendlistfragment extends Fragment {
                                 e.printStackTrace();
                             }
 
-                        }
-                        else{
-                            Toast.makeText(getActivity(),"no response",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "no response", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -191,9 +186,9 @@ public class Friendlistfragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        adapter=new MyRecyclerViewAdapter(getActivity(),mylist);
+        adapter = new MyRecyclerViewAdapter(getActivity(), mylist);
         //layoutManager=new LinearLayoutManager(getActivity());
-        stagManager=new StaggeredGridLayoutManager(2, 1);
+        stagManager = new StaggeredGridLayoutManager(2, 1);
 
 
     }
@@ -201,7 +196,7 @@ public class Friendlistfragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(getActivity(),"Friendlist is selected",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Friendlist is selected", Toast.LENGTH_LONG).show();
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(stagManager);

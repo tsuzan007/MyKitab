@@ -45,21 +45,22 @@ import butterknife.OnClick;
 
 public class AlbumFragment extends Fragment {
 
-    private static final int REQUEST_CODE_FOR_CAMERA =1 ;
-    @BindView(R.id.floatingaction)FloatingActionButton floatingActionButton;
+    private static final int REQUEST_CODE_FOR_CAMERA = 1;
+    @BindView(R.id.floatingaction)
+    FloatingActionButton floatingActionButton;
     ImageView imageView;
 
-    Uri uriSavedImage=null;
-    final String[] permision={Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    Uri uriSavedImage = null;
+    final String[] permision = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.albumfragment,container,false);
+        View view = inflater.inflate(R.layout.albumfragment, container, false);
 
 
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
 
         return view;
     }
@@ -71,19 +72,19 @@ public class AlbumFragment extends Fragment {
     }
 
     @OnClick(R.id.floatingaction)
-    public void OnfloatingactioniconClicked(FloatingActionButton floatingActionButton){
+    public void OnfloatingactioniconClicked(FloatingActionButton floatingActionButton) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         File imagesFolder = new File(Environment.getExternalStorageDirectory(), "MyImages");
         imagesFolder.mkdirs();
 
         File image = new File(imagesFolder, "QR_" + timeStamp + ".png");
-        uriSavedImage= FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider",image);
+        uriSavedImage = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", image);
 
 
-        if(ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -92,23 +93,19 @@ public class AlbumFragment extends Fragment {
             }
 
 
-        }
-        else{
+        } else {
 
-            if(shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
-                Toast.makeText(getActivity(),"Access is not granted from user",Toast.LENGTH_LONG).show();
-
+            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                Toast.makeText(getActivity(), "Access is not granted from user", Toast.LENGTH_LONG).show();
 
 
             }
-            if(shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
-                Toast.makeText(getActivity(),"Access is not granted from user",Toast.LENGTH_LONG).show();
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Toast.makeText(getActivity(), "Access is not granted from user", Toast.LENGTH_LONG).show();
 
 
-
-            }
-            else{
-                requestPermissions(permision,REQUEST_CODE_FOR_CAMERA);
+            } else {
+                requestPermissions(permision, REQUEST_CODE_FOR_CAMERA);
             }
 
 
@@ -124,14 +121,12 @@ public class AlbumFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==REQUEST_CODE_FOR_CAMERA){
-            if(resultCode==getActivity().RESULT_OK){
+        if (requestCode == REQUEST_CODE_FOR_CAMERA) {
+            if (resultCode == getActivity().RESULT_OK) {
 
-                Intent intent=new Intent(getActivity(),PhotoPreviewActivity.class);
-                intent.putExtra("url",uriSavedImage);
+                Intent intent = new Intent(getActivity(), PhotoPreviewActivity.class);
+                intent.putExtra("url", uriSavedImage);
                 startActivity(intent);
-
-
 
 
             }

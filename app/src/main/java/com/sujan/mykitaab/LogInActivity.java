@@ -14,6 +14,6 @@ public class LogInActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        loginfragment=getFragmentManager().findFragmentById(R.id.fragment1);
+        loginfragment = getFragmentManager().findFragmentById(R.id.fragment1);
     }
 }
