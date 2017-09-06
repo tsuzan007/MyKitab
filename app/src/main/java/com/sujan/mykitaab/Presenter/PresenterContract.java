@@ -7,31 +7,33 @@ import com.sujan.mykitaab.HelperClass.User_WithFacebook;
  */
 
 public interface PresenterContract {
-        //presenter will send updates to View (Fragment or Activity)
-     interface PublishView{
-            void publish_userInfo(User_WithFacebook user);
+    //presenter will send updates to View (Fragment or Activity)
+    interface PublishView {
+        void publish_userInfo(User_WithFacebook user);
 
 
     }
+
     //presenter will receive data from the view
-    interface LoginInfoInputToPresenter{
+    interface LoginInfoInputToPresenter {
         void onSignupClicked();
 
     }
+
     //presenter will communicate with the Model
-    interface getDataFromService{
+    interface getDataFromService {
 
 
     }
-  //model will update the presenter
-    interface updatethepresenter{
+
+    //model will update the presenter
+    interface updatethepresenter {
 
     }
-    interface setLocation{
+
+    interface setLocation {
         public void setLocation(String location);
     }
-
-
 
 
 }

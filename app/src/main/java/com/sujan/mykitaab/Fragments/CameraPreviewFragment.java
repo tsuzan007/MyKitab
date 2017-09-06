@@ -60,7 +60,7 @@ import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotate
  * Created by macbookpro on 4/18/17.
  */
 
-public class CameraPreviewFragment extends Fragment  implements LocationListener {
+public class CameraPreviewFragment extends Fragment implements LocationListener {
     Uri uriSavedImage;
     ImageView imageView;
     String mylocation = "Default";
@@ -81,7 +81,7 @@ public class CameraPreviewFragment extends Fragment  implements LocationListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        geocoder=new Geocoder(getActivity());
+        geocoder = new Geocoder(getActivity());
 
     }
 
@@ -94,7 +94,7 @@ public class CameraPreviewFragment extends Fragment  implements LocationListener
         try {
             imageStream = getActivity().getContentResolver().openInputStream(uriSavedImage);
             final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
- //           ExifInterface exif = new ExifInterface(uriSavedImage.getPath());
+            //           ExifInterface exif = new ExifInterface(uriSavedImage.getPath());
 //            int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 //            int rotationInDegrees = exifToDegrees(rotation);
             Matrix matrix = new Matrix();
@@ -106,37 +106,35 @@ public class CameraPreviewFragment extends Fragment  implements LocationListener
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)){
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                        Log.e("....","in should show request");
-                    }
-                    else{
+                        Log.e("....", "in should show request");
+                    } else {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                     }
                 }
+            } else {
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5, this);
+
             }
-            else {
-               location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5,this);
-
-            }
-
-            List<Address> locations=new ArrayList<>();
+            List<Address> locations = new ArrayList<>();
             try {
-                double lat=location.getLatitude();
-                double lng=location.getLongitude();
-                locations=geocoder.getFromLocation(lat,lng,1);
-                try{
+                double lat = location.getLatitude();
+                double lng = location.getLongitude();
+                locations = geocoder.getFromLocation(lat, lng, 1);
+                try {
                     mylocation = locations.get(0).getLocality();
 
-                }catch (Exception e){
-                    mylocation=locations.get(0).getCountryName();
+                } catch (Exception e) {
+                    mylocation = locations.get(0).getCountryName();
 
                 }
 
-            }catch (Exception e){
-                Toast.makeText(getActivity(),"Error Occured in fetching the location",Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), "Error Occured in fetching the location", Toast.LENGTH_SHORT).show();
 
             }
             Canvas canvas = new Canvas(adjustedBitmap);
@@ -167,13 +165,12 @@ public class CameraPreviewFragment extends Fragment  implements LocationListener
     }
 
 
-
     @Override
     public void onLocationChanged(Location location) {
-        double lat=location.getLatitude();
-        double lng=location.getLongitude();
-       try {
-           List<Address> locations=geocoder.getFromLocation(lat,lng,1);
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+        try {
+            List<Address> locations = geocoder.getFromLocation(lat, lng, 1);
         } catch (IOException e) {
             e.printStackTrace();
         }

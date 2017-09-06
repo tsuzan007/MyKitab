@@ -30,14 +30,17 @@ import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment {
 
-    @BindView(R.id.myViewPager) ViewPager viewPager;
-    @BindView(R.id.myTablayout) TabLayout tabLayout;
+    @BindView(R.id.myViewPager)
+    ViewPager viewPager;
+    @BindView(R.id.myTablayout)
+    TabLayout tabLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view=inflater.inflate(R.layout.main_fragment,container,false);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.main_fragment, container, false);
+        ButterKnife.bind(this, view);
         createViewPager();
         return view;
     }
@@ -64,11 +67,9 @@ public class MainFragment extends Fragment {
 //    }
 
 
-
-
-    public void createViewPager(){
+    public void createViewPager() {
         tabLayout.setupWithViewPager(viewPager);
-        MyFragmentAdapter myFragmentAdapter=new MyFragmentAdapter(getFragmentManager());
+        MyFragmentAdapter myFragmentAdapter = new MyFragmentAdapter(getFragmentManager());
         viewPager.setAdapter(myFragmentAdapter);
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 //        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -93,18 +94,14 @@ public class MainFragment extends Fragment {
 //        });
 
 
-
-
-
-
     }
 
-    public class MyFragmentAdapter extends FragmentPagerAdapter{
-        String[] fragmentname={"FriendList","Albums"};
+    public class MyFragmentAdapter extends FragmentPagerAdapter {
+        String[] fragmentname = {"FriendList", "Albums"};
 
         @Override
         public CharSequence getPageTitle(int position) {
-                    return fragmentname[position];
+            return fragmentname[position];
 
 
         }
@@ -115,12 +112,12 @@ public class MainFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
-                    Fragment friendFragment=new Friendlistfragment();
+                    Fragment friendFragment = new Friendlistfragment();
                     return friendFragment;
                 case 1:
-                    Fragment AlbumFragment=new AlbumFragment();
+                    Fragment AlbumFragment = new AlbumFragment();
                     return AlbumFragment;
                 default:
                     return null;

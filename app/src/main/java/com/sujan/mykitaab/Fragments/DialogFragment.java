@@ -15,7 +15,7 @@ public class DialogFragment extends android.app.DialogFragment {
 
 
     public static DialogFragment newInstance(int title) {
-       DialogFragment frag = new DialogFragment();
+        DialogFragment frag = new DialogFragment();
         Bundle args = new Bundle();
         return frag;
     }

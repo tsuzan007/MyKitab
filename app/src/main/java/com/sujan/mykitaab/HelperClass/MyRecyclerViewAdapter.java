@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
-   int[] list_of_icons={android.R.drawable.ic_btn_speak_now,
+    int[] list_of_icons = {android.R.drawable.ic_btn_speak_now,
             android.R.drawable.ic_delete,
             android.R.drawable.ic_dialog_email,
             android.R.drawable.ic_input_add,
@@ -29,7 +29,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             android.R.drawable.ic_lock_idle_lock,
             android.R.drawable.ic_lock_idle_low_battery,
             android.R.drawable.ic_lock_lock,
-            android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,android.R.drawable.ic_popup_reminder,
+            android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder,
 
     };
     Context context;
@@ -37,8 +37,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public MyRecyclerViewAdapter(Context context, List<FeedClass> list) {
 
-        this.context=context;
-        this.list=list;
+        this.context = context;
+        this.list = list;
     }
 
     @Override
@@ -55,11 +55,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        if(list.size()!=0) {
-            if(position<list_of_icons.length){
-            Glide.with(context).load(list_of_icons[position]).into(holder.imageView);
-            holder.textView1.setText(list.get(position).getStory());
-            holder.textView.setText(list.get(position).getCreated_time());}
+        if (list.size() != 0) {
+            if (position < list_of_icons.length) {
+                Glide.with(context).load(list_of_icons[position]).into(holder.imageView);
+                holder.textView1.setText(list.get(position).getStory());
+                holder.textView.setText(list.get(position).getCreated_time());
+            }
         }
 
     }
@@ -70,12 +71,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
 
-
-
-
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView textView;
         TextView textView1;
@@ -84,10 +80,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            cardView= (CardView) itemView.findViewById(R.id.card_view);
-            textView= (TextView) itemView.findViewById(R.id.info_text);
-            textView1= (TextView) itemView.findViewById(R.id.story);
-            imageView= (ImageView) itemView.findViewById(R.id.imageView3);
+            cardView = (CardView) itemView.findViewById(R.id.card_view);
+            textView = (TextView) itemView.findViewById(R.id.info_text);
+            textView1 = (TextView) itemView.findViewById(R.id.story);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView3);
         }
     }
 }
