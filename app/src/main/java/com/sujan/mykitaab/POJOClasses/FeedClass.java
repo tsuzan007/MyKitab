@@ -1,4 +1,4 @@
-package com.sujan.mykitaab.HelperClass;
+package com.sujan.mykitaab.POJOClasses;
 
 /**
  * Created by macbookpro on 4/19/17.
@@ -8,11 +8,13 @@ public class FeedClass {
     String story;
     String created_time;
     String id;
+    String Url;
 
-    public FeedClass(String story, String created_time, String id) {
+    public FeedClass(String story, String created_time, String id, String Url) {
         this.story = story;
         this.created_time = created_time;
         this.id = id;
+        this.Url=Url;
     }
 
     public String getStory() {
@@ -37,5 +39,12 @@ public class FeedClass {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
     }
 }
