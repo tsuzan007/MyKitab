@@ -1,4 +1,4 @@
-package com.sujan.mykitaab.HelperClass;
+package com.sujan.mykitaab.POJOClasses;
 
 /**
  * Created by macbookpro on 4/17/17.

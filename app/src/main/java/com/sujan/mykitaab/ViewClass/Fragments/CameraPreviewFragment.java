@@ -1,4 +1,4 @@
-package com.sujan.mykitaab.Fragments;
+package com.sujan.mykitaab.ViewClass.Fragments;
 
 import android.Manifest;
 import android.content.Context;
@@ -54,7 +54,7 @@ import java.util.List;
 
 import static android.R.attr.bitmap;
 import static android.content.Context.LOCATION_SERVICE;
-import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage;
+
 
 /**
  * Created by macbookpro on 4/18/17.

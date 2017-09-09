@@ -1,4 +1,4 @@
-package com.sujan.mykitaab.Fragments;
+package com.sujan.mykitaab.ViewClass.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,14 +12,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.sujan.mykitaab.HelperClass.MessageEvent;
 import com.sujan.mykitaab.R;
 
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,59 +40,19 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-
-    }
-
-//    @Subscribe
-//    public void listen(MessageEvent messageEvent){
-//        Toast.makeText(getActivity(),"how are you.",Toast.LENGTH_SHORT).show();
-//
-//
-//    }
 
 
     public void createViewPager() {
         tabLayout.setupWithViewPager(viewPager);
         MyFragmentAdapter myFragmentAdapter = new MyFragmentAdapter(getFragmentManager());
         viewPager.setAdapter(myFragmentAdapter);
-//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if(tab.getPosition()==0) {
-//                    Toast.makeText(getActivity(), "Tab 1 is selected", Toast.LENGTH_LONG).show();
-//                }
-//                else
-//                    Toast.makeText(getActivity(),"Tab 2 is selected",Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
 
 
     }
 
     public class MyFragmentAdapter extends FragmentPagerAdapter {
-        String[] fragmentname = {"FriendList", "Albums"};
+        String[] fragmentname = {"My Facebook Feeds", "Albums"};
 
         @Override
         public CharSequence getPageTitle(int position) {
@@ -114,7 +69,7 @@ public class MainFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Fragment friendFragment = new Friendlistfragment();
+                    Fragment friendFragment = new MyFeedsfragment();
                     return friendFragment;
                 case 1:
                     Fragment AlbumFragment = new AlbumFragment();
@@ -136,5 +91,10 @@ public class MainFragment extends Fragment {
         return super.onOptionsItemSelected(item);
 
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

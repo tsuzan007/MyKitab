@@ -1,4 +1,4 @@
-package com.sujan.mykitaab.Fragments;
+package com.sujan.mykitaab.ViewClass.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

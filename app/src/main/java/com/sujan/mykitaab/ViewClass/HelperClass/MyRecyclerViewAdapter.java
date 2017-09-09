@@ -1,7 +1,6 @@
-package com.sujan.mykitaab.HelperClass;
+package com.sujan.mykitaab.ViewClass.HelperClass;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+import com.sujan.mykitaab.POJOClasses.FeedClass;
 import com.sujan.mykitaab.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,17 +22,7 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
-    int[] list_of_icons = {android.R.drawable.ic_btn_speak_now,
-            android.R.drawable.ic_delete,
-            android.R.drawable.ic_dialog_email,
-            android.R.drawable.ic_input_add,
-            android.R.drawable.ic_input_add,
-            android.R.drawable.ic_lock_idle_lock,
-            android.R.drawable.ic_lock_idle_low_battery,
-            android.R.drawable.ic_lock_lock,
-            android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder, android.R.drawable.ic_popup_reminder,
 
-    };
     Context context;
     List<FeedClass> list;
 
@@ -56,11 +47,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         if (list.size() != 0) {
-            if (position < list_of_icons.length) {
-                Glide.with(context).load(list_of_icons[position]).into(holder.imageView);
+
+                Picasso.with(context).load(list.get(position).getUrl()).into(holder.imageView);
                 holder.textView1.setText(list.get(position).getStory());
                 holder.textView.setText(list.get(position).getCreated_time());
-            }
+
         }
 
     }
