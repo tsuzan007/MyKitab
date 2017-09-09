@@ -87,6 +87,7 @@ public class MyFeedsfragment extends Fragment implements MVPContracts.PublishToV
         mylist.clear();
         myKitabPresenter.onLoadFeeds();
         swipeRefreshLayout.setRefreshing(false);
+        adapter.notifyDataSetChanged();
 
 
     }
