@@ -61,15 +61,6 @@ public class MyKitabPresenter implements
     }
 
 
-    public void onCancel() {
-
-
-    }
-
-
-    public void onError(FacebookException error) {
-
-    }
 
     @Override
     public void onLoadFeeds() {

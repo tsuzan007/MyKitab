@@ -13,7 +13,6 @@ import com.sujan.mykitaab.R;
 
 public class DialogFragment extends android.app.DialogFragment {
 
-
     public static DialogFragment newInstance(int title) {
         DialogFragment frag = new DialogFragment();
         Bundle args = new Bundle();

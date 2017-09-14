@@ -1,12 +1,13 @@
 package com.sujan.mykitaab.ViewClass.Fragments;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,7 +34,6 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.main_fragment, container, false);
         ButterKnife.bind(this, view);
         createViewPager();
@@ -47,18 +47,14 @@ public class MainFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         MyFragmentAdapter myFragmentAdapter = new MyFragmentAdapter(getFragmentManager());
         viewPager.setAdapter(myFragmentAdapter);
-
-
     }
 
     public class MyFragmentAdapter extends FragmentPagerAdapter {
-        String[] fragmentname = {"My Facebook Feeds", "Albums"};
+        String[] fragmentname = {"My Facebook Feeds", "Get total"};
 
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmentname[position];
-
-
         }
 
         public MyFragmentAdapter(FragmentManager fm) {
@@ -86,12 +82,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-
-
-    }
 
     @Override
     public void onStop() {
