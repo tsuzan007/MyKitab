@@ -1,5 +1,12 @@
 package com.sujan.mykitaab.Model;
 
+import android.app.IntentService;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -41,8 +48,6 @@ public class Model implements MVPContracts.RequestModel{
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         if (response.getError() == null) {
-
-                            Log.v("LoginActivity", response.toString());
                             JSONObject jsonObject = response.getJSONObject();
                             try {
                                 String id = jsonObject.getString("id");
@@ -75,8 +80,6 @@ public class Model implements MVPContracts.RequestModel{
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         if (response.getError() == null) {
-
-                            Log.v("LoginActivity", response.toString());
                             JSONObject jsonObject = response.getJSONObject();
                             try {
                                 JSONObject feedmasterobject = jsonObject.getJSONObject("feed");
@@ -104,7 +107,9 @@ public class Model implements MVPContracts.RequestModel{
 
                                     String created_time = feed_object.getString("created_time");
                                     String id = feed_object.getString("id");
+
                                     FeedClass mystory = new FeedClass(story, created_time, id,url);
+
                                     EventBus.getDefault().post(mystory);
                                 }
                             } catch (JSONException e) {

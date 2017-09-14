@@ -1,8 +1,6 @@
-package com.sujan.mykitaab.Services;
+package com.sujan.mykitaab.POJOClasses;
 
 import com.facebook.AccessToken;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

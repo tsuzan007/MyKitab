@@ -1,10 +1,13 @@
 package com.sujan.mykitaab.POJOClasses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by macbookpro on 4/19/17.
  */
 
-public class FeedClass {
+public class FeedClass implements Parcelable{
     String story;
     String created_time;
     String id;
@@ -16,6 +19,25 @@ public class FeedClass {
         this.id = id;
         this.Url=Url;
     }
+
+    protected FeedClass(Parcel in) {
+        story = in.readString();
+        created_time = in.readString();
+        id = in.readString();
+        Url = in.readString();
+    }
+
+    public static final Creator<FeedClass> CREATOR = new Creator<FeedClass>() {
+        @Override
+        public FeedClass createFromParcel(Parcel in) {
+            return new FeedClass(in);
+        }
+
+        @Override
+        public FeedClass[] newArray(int size) {
+            return new FeedClass[size];
+        }
+    };
 
     public String getStory() {
         return story;
@@ -46,5 +68,18 @@ public class FeedClass {
 
     public void setUrl(String url) {
         Url = url;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(story);
+        parcel.writeString(created_time);
+        parcel.writeString(id);
+        parcel.writeString(Url);
     }
 }

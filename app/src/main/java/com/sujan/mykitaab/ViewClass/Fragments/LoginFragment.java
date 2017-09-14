@@ -2,6 +2,8 @@ package com.sujan.mykitaab.ViewClass.Fragments;
 
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,6 +23,9 @@ import com.facebook.FacebookException;
 
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.sujan.mykitaab.MainActivity;
 import com.sujan.mykitaab.POJOClasses.FeedClass;
 import com.sujan.mykitaab.POJOClasses.MessageEvent;
@@ -36,15 +42,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by macbookpro on 4/14/17.
  */
 
-public class LoginFragment extends Fragment implements MVPContracts.PublishToView{
-    private CallbackManager callbackManager;
-    private MyKitabPresenter myKitabPresenter;
-
+public class LoginFragment extends Fragment implements MVPContracts.PublishToView {
 
     @BindView(R.id.edittext_username)
     EditText username;
@@ -54,31 +58,36 @@ public class LoginFragment extends Fragment implements MVPContracts.PublishToVie
     Button signin;
     @BindView(R.id.button_facebooklogin)
     LoginButton facebooklogin;
+    FirebaseAuth firebaseAuth;
 
-
+    private CallbackManager callbackManager;
+    private MyKitabPresenter myKitabPresenter;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        myKitabPresenter=new MyKitabPresenter(this);
-
-
+        myKitabPresenter = new MyKitabPresenter(this);
+        firebaseAuth=FirebaseAuth.getInstance();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        sharedPreferences=getActivity().getSharedPreferences("userstatus",MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("userStatus",false)){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+
+        }
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (facebooklogin.getText().toString().equals("Log out")) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-        }
-
-
     }
-
-
 
 
 
@@ -108,7 +117,6 @@ public class LoginFragment extends Fragment implements MVPContracts.PublishToVie
         ButterKnife.bind(this, view);
         facebooklogin.setReadPermissions("public_profile", "user_birthday", "email", "user_posts", "user_friends", "read_custom_friendlists");
         facebooklogin.setFragment(this);
-
         callbackManager = CallbackManager.Factory.create();
         return view;
     }
@@ -117,27 +125,25 @@ public class LoginFragment extends Fragment implements MVPContracts.PublishToVie
     @OnClick({R.id.button_facebooklogin, R.id.button_signin})
     public void onClickbutton(View view) {
         if (view.getId() == R.id.button_facebooklogin) {
-            callbackManager = CallbackManager.Factory.create();
             facebooklogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                    myKitabPresenter.onSuccess(loginResult);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
-
+                    myKitabPresenter.onSuccess(loginResult);
 
                 }
 
                 @Override
                 public void onCancel() {
-                    myKitabPresenter.onCancel();
+                    Toast.makeText(getActivity(),"Log in cancelled.",Toast.LENGTH_SHORT).show();
+
 
                 }
 
                 @Override
                 public void onError(FacebookException error) {
-                    myKitabPresenter.onError(error);
-
+                    Toast.makeText(getActivity(),"Unable to sign in! Please Retry.",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -147,7 +153,7 @@ public class LoginFragment extends Fragment implements MVPContracts.PublishToVie
             if (!TextUtils.isEmpty(name)) {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("username", name);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
 
             } else {
                 DialogFragment dialogFragment = new DialogFragment();
@@ -168,7 +174,6 @@ public class LoginFragment extends Fragment implements MVPContracts.PublishToVie
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
@@ -182,7 +187,6 @@ public class LoginFragment extends Fragment implements MVPContracts.PublishToVie
     @Override
     public void publish_feeds(FeedClass feedClass) {
     }
-
 
 
 }

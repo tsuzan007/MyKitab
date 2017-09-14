@@ -23,8 +23,6 @@ public interface MVPContracts {
         interface ViewPresenterContract {
             void onSignupClicked();
             void onSuccess(LoginResult loginResult);
-            void onCancel();
-            void onError(FacebookException error);
             void onLoadFeeds();
 
 

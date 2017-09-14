@@ -37,20 +37,22 @@ public class MainActivity extends AppCompatActivity {
     Button changelayoutbutton;
     @BindView(R.id.logout)
     Button logout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     private User_WithFacebook user_withFacebook;
-
-    Intent intent;
-
+    protected Intent intent;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences userstatus;
     private SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null) {
+            user_withFacebook = savedInstanceState.getParcelable("user");
+        }
         ButterKnife.bind(this);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -58,25 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-
-        //calling sync state is necessay or else your hamburger icon wont show up
-        actionBarDrawerToggle.syncState();EventBus.getDefault().unregister(this);
-
-
-    }
-
-    @OnClick(R.id.change_layout)
-    public void changelayoutclicked(Button button) {
-
-        EventBus.getDefault().post(new MessageEvent("hello"));
-
-    }
-
-    @OnClick(R.id.logout)
-    public void onlogoutButtonClicked(Button button) {
-        LoginManager.getInstance().logOut();
-        Intent intent = new Intent(this, LogInActivity.class);
-        startActivity(intent);
+        //calling sync state is necessary or else hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
 
 
     }
@@ -85,33 +70,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         intent = getIntent();
-        String name = "";
-        name = intent.getStringExtra("username");
-        if (TextUtils.isEmpty(name)) {
-
-            navigationView.getMenu().getItem(0).setTitle(name);
-
-        }
-        navigationView.getMenu().getItem(0).setTitle(name);
-        sharedPreferences=getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-        editor=sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        userstatus=getSharedPreferences("userstatus",Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor2=userstatus.edit();
         EventBus.getDefault().register(this);
 
-    }
 
-
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        outState.putParcelable("user", user_withFacebook);
-        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        navigationView.getMenu().getItem(0).setTitle(((User_WithFacebook) savedInstanceState.getParcelable("user")).getName());
-        navigationView.getMenu().getItem(1).setTitle(((User_WithFacebook) savedInstanceState.getParcelable("user")).getEmail_id());
-        navigationView.getMenu().getItem(2).setTitle(((User_WithFacebook) savedInstanceState.getParcelable("user")).getDate_of_birth());
+    protected void onResume() {
+        super.onResume();
+        navigationView.getMenu().getItem(0).setTitle(sharedPreferences.getString("name", "Name"));
+        navigationView.getMenu().getItem(1).setTitle(sharedPreferences.getString("emailid", "email"));
+        navigationView.getMenu().getItem(2).setTitle(sharedPreferences.getString("dob", "xx-xx-xxxx"));
 
 
     }
@@ -121,32 +94,40 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
 
-
-
     }
 
+    @OnClick(R.id.change_layout)
+    public void changelayoutclicked(Button button) {
+        EventBus.getDefault().post(new MessageEvent("hello"));
+    }
+
+    @OnClick(R.id.logout)
+    public void onlogoutButtonClicked(Button button) {
+        LoginManager.getInstance().logOut();
+        editor2.putBoolean("userStatus",false);
+        editor2.commit();
+        Intent intent = new Intent(this, LogInActivity.class);
+        startActivity(intent);
+    }
+
+
     @Override
-    protected void onResume() {
-        super.onResume();
-            navigationView.getMenu().getItem(0).setTitle(sharedPreferences.getString("name","Name"));
-            navigationView.getMenu().getItem(1).setTitle(sharedPreferences.getString("emailid","email"));
-            navigationView.getMenu().getItem(2).setTitle(sharedPreferences.getString("dob","xx-xx-xxxx"));
-
-
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("user", user_withFacebook);
+        super.onSaveInstanceState(outState);
     }
 
 
     @Subscribe
     public void updatenavigation(User_WithFacebook user_withFacebook) {
         this.user_withFacebook = user_withFacebook;
-        editor.putString("name",user_withFacebook.getName());
-        editor.putString("emailid",user_withFacebook.getEmail_id());
-        editor.putString("dob",user_withFacebook.getDate_of_birth());
+        editor.putString("name", user_withFacebook.getName());
+        editor.putString("emailid", user_withFacebook.getEmail_id());
+        editor.putString("dob", user_withFacebook.getDate_of_birth());
         editor.commit();
         navigationView.getMenu().getItem(0).setTitle(user_withFacebook.getName());
         navigationView.getMenu().getItem(1).setTitle(user_withFacebook.getEmail_id());
         navigationView.getMenu().getItem(2).setTitle(user_withFacebook.getDate_of_birth());
-
 
     }
 

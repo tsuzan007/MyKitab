@@ -15,6 +15,7 @@ import com.sujan.mykitaab.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by macbookpro on 4/18/17.
@@ -24,7 +25,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
     Context context;
-    List<FeedClass> list;
+   List<FeedClass> list;
 
     public MyRecyclerViewAdapter(Context context, List<FeedClass> list) {
 
